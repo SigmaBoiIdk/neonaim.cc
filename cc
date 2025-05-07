@@ -1,10 +1,8 @@
---// fix hahah by neonaim.cc and update more
---// https://discord.gg/UgQAPcBtpy
---// hi
+
 
 game.StarterGui:SetCore("SendNotification", {
     Title = "UPDATE DONE!"; 
-    Text = "Script has fixed all error functions by neonaim.cc and elias."; 
+    Text = "neonaim.cc"; 
     Duration = 15;
 })
 task.wait(0.2)
@@ -203,7 +201,7 @@ local button = Instance.new("TextButton")
 button.Parent = frame
 button.Position = UDim2.new(0.5, -22, 0.5, -12) -- Centered better
 button.Size = UDim2.new(0, 44, 0, 24) -- Slightly larger for better touch
-button.Text = "Menu"
+button.Text = "ui"
 button.BackgroundColor3 = Color3.fromRGB(0, 120, 215)
 button.TextColor3 = Color3.fromRGB(255, 255, 255)
 button.Font = Enum.Font.SourceSansBold
@@ -290,7 +288,7 @@ local Window = Library:CreateWindow({
 local Tabs = {
         Main = Window:AddTab("Main"),
         Rage = Window:AddTab("Visuals"),
-        ["UI Settings"] = Window:AddTab("Configuration")
+        ["Settings"] = Window:AddTab("Configuration")
     }
 
 Library:SetWatermarkVisibility(true)
@@ -310,7 +308,7 @@ local WatermarkConnection = game:GetService('RunService').RenderStepped:Connect(
 
     local currentTime = os.date("%H:%M:%S")  -- Format the time as HH:MM:SS
 
-    Library:SetWatermark(('neonaim.cc.cc [neonaim.cc] | %s fps | %s ms | Time: %s'):format(
+    Library:SetWatermark(('neonaim.cc | %s fps | %s ms | Time: %s'):format(
         math.floor(FPS),
         math.floor(game:GetService('Stats').Network.ServerStatsItem['Data Ping']:GetValue()),
         currentTime
