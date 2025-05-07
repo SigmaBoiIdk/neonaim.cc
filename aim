@@ -281,7 +281,7 @@ end)
 
 
 local Window = Library:CreateWindow({
-    Title = "neonaim.cc.cc [khen.cc]",
+    Title = "neonaim.cc",
     Center = true,
     AutoShow = true,
     Size = UDim2.new(0, 450, 0, 380)
