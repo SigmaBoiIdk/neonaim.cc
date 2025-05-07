@@ -4,7 +4,7 @@
 
 game.StarterGui:SetCore("SendNotification", {
     Title = "UPDATE DONE!"; 
-    Text = "Script has fixed all error functions by khen.cc and elias."; 
+    Text = "Neonaim.cc."; 
     Duration = 15;
 })
 task.wait(0.2)
@@ -165,7 +165,7 @@ local ThemeManager = loadstring(game:HttpGet(repo .. 'nini/ThemeManager.lua'))()
 local SaveManager = loadstring(game:HttpGet(repo .. 'nini/SaveManager.lua'))()
 
 
-Library:Notify('khen.cc')
+Library:Notify('neonaim.cc')
 wait(1)
 
 
@@ -175,7 +175,7 @@ local player = game.Players.LocalPlayer
 local playerGuii = player:WaitForChild("PlayerGui")
 
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "khen.cc"
+screenGui.Name = "neonaim.cc"
 screenGui.Parent = playerGuii
 screenGui.ResetOnSpawn = false
 screenGui.IgnoreGuiInset = true
@@ -310,7 +310,7 @@ local WatermarkConnection = game:GetService('RunService').RenderStepped:Connect(
 
     local currentTime = os.date("%H:%M:%S")  -- Format the time as HH:MM:SS
 
-    Library:SetWatermark(('neonaim.cc.cc [khen.cc] | %s fps | %s ms | Time: %s'):format(
+    Library:SetWatermark(('neonaim.cc | %s fps | %s ms | Time: %s'):format(
         math.floor(FPS),
         math.floor(game:GetService('Stats').Network.ServerStatsItem['Data Ping']:GetValue()),
         currentTime
