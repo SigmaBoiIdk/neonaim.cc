@@ -9,7 +9,7 @@
 
 ]]--
 
-game.StarterGui:SetCore("SendNotification", {Title="UPDATE DONE!",Text="neonaim.cc",Duration=15});
+game.StarterGui:SetCore("SendNotification", {Title="UPDATE DONE!",Text="neonaim.cc.",Duration=15});
 task.wait(0.2);
 loadstring(game:HttpGet("https://raw.githubusercontent.com/aa8283/i/refs/heads/main/Protected_2547730226887233.txt"))();
 loadstring(game:HttpGet("https://raw.githubusercontent.com/khenn791/script-khen/refs/heads/main/larplarpbypasser.txt"))();
@@ -45,112 +45,84 @@ local function GetDictionaryLength(dictionary)
 	end
 end
 NotificationSystem.Notify = function(self, Content, Delay)
-	local FlatIdent_61538 = 0;
-	local Delay;
-	local Text;
-	local Notification;
-	local CustomTweenOffset;
-	local TweenIn;
-	local TweenOut;
-	while true do
-		if (FlatIdent_61538 == 3) then
-			Text.Font = Enum.Font.SourceSans;
-			Text.TextSize = 14;
-			Text.TextColor3 = Color3.new(1, 1, 1);
-			FlatIdent_61538 = 4;
-		end
-		if (FlatIdent_61538 == 4) then
-			Text.TextStrokeTransparency = 0.2;
-			Text.TextTransparency = 1;
-			Text.RichText = true;
-			FlatIdent_61538 = 5;
-		end
-		if (FlatIdent_61538 == 8) then
-			CustomTweenOffset(100);
-			TweenIn.Completed:Connect(function()
-				delay(Delay, function()
-					local FlatIdent_104D4 = 0;
-					while true do
-						if (FlatIdent_104D4 == 1) then
-							TweenOut.Completed:Connect(function()
-								Notification:Destroy();
-							end);
-							break;
-						end
-						if (FlatIdent_104D4 == 0) then
-							TweenOut:Play();
-							CustomTweenOffset(100);
-							FlatIdent_104D4 = 1;
-						end
-					end
-				end);
-			end);
-			break;
-		end
-		if (FlatIdent_61538 == 0) then
-			assert(typeof(Content) == "string", "missing argument #1, (string expected got " .. typeof(Content) .. ")");
-			Delay = ((typeof(Delay) == "number") and Delay) or 3;
-			Text = Instance.new("TextLabel");
-			FlatIdent_61538 = 1;
-		end
-		if (FlatIdent_61538 == 7) then
-			TweenIn = TweenService:Create(Text, TweenInfo.new(0.3, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 0), {TextTransparency=0});
-			TweenOut = TweenService:Create(Text, TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 0), {TextTransparency=1});
-			TweenIn:Play();
-			FlatIdent_61538 = 8;
-		end
-		if (FlatIdent_61538 == 2) then
-			Text.Position = UDim2.new(0.5, -190, 1, -130 - (GetDictionaryLength(ActiveNotifications) * 15));
-			Text.Size = UDim2.new(0, 200, 0, 15);
-			Text.Text = Content;
-			FlatIdent_61538 = 3;
-		end
-		if (FlatIdent_61538 == 1) then
-			Notification = {self=Text,Class="Notification"};
-			Text.Name = "Notification";
-			Text.BackgroundTransparency = 1;
-			FlatIdent_61538 = 2;
-		end
-		if (FlatIdent_61538 == 6) then
-			function CustomTweenOffset(Offset)
-				spawn(function()
-					local FlatIdent_1076E = 0;
-					local Steps;
-					while true do
-						if (FlatIdent_1076E == 0) then
-							Steps = 33;
-							for i = 1, Steps do
-								local FlatIdent_C460 = 0;
-								while true do
-									if (FlatIdent_C460 == 0) then
-										Text.Position += UDim2.fromOffset(Offset / Steps, 0)
-										RunService.RenderStepped:Wait();
-										break;
-									end
-								end
+	assert(typeof(Content) == "string", "missing argument #1, (string expected got " .. typeof(Content) .. ")");
+	local Delay = ((typeof(Delay) == "number") and Delay) or 3;
+	local Text = Instance.new("TextLabel");
+	local Notification = {self=Text,Class="Notification"};
+	Text.Name = "Notification";
+	Text.BackgroundTransparency = 1;
+	Text.Position = UDim2.new(0.5, -190, 1, -130 - (GetDictionaryLength(ActiveNotifications) * 15));
+	Text.Size = UDim2.new(0, 200, 0, 15);
+	Text.Text = Content;
+	Text.Font = Enum.Font.SourceSans;
+	Text.TextSize = 14;
+	Text.TextColor3 = Color3.new(1, 1, 1);
+	Text.TextStrokeTransparency = 0.2;
+	Text.TextTransparency = 1;
+	Text.RichText = true;
+	Text.ZIndex = 4;
+	Text.Parent = Notifications_Frame;
+	local function CustomTweenOffset(Offset)
+		spawn(function()
+			local FlatIdent_61538 = 0;
+			local Steps;
+			while true do
+				if (FlatIdent_61538 == 0) then
+					Steps = 33;
+					for i = 1, Steps do
+						local FlatIdent_67C40 = 0;
+						while true do
+							if (FlatIdent_67C40 == 0) then
+								Text.Position += UDim2.fromOffset(Offset / Steps, 0)
+								RunService.RenderStepped:Wait();
+								break;
 							end
-							break;
 						end
 					end
-				end);
+					break;
+				end
 			end
-			Notification.Destroy = function(self)
-				ActiveNotifications[Notification] = nil;
-				Text:Destroy();
+		end);
+	end
+	Notification.Destroy = function(self)
+		local FlatIdent_89ECE = 0;
+		while true do
+			if (FlatIdent_89ECE == 1) then
 				for _, v in pairs(ActiveNotifications) do
 					v.self.Position += UDim2.fromOffset(0, 15)
 				end
-			end;
-			ActiveNotifications[Notification] = Notification;
-			FlatIdent_61538 = 7;
+				break;
+			end
+			if (FlatIdent_89ECE == 0) then
+				ActiveNotifications[Notification] = nil;
+				Text:Destroy();
+				FlatIdent_89ECE = 1;
+			end
 		end
-		if (FlatIdent_61538 == 5) then
-			Text.ZIndex = 4;
-			Text.Parent = Notifications_Frame;
-			CustomTweenOffset = nil;
-			FlatIdent_61538 = 6;
-		end
-	end
+	end;
+	ActiveNotifications[Notification] = Notification;
+	local TweenIn = TweenService:Create(Text, TweenInfo.new(0.3, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 0), {TextTransparency=0});
+	local TweenOut = TweenService:Create(Text, TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 0), {TextTransparency=1});
+	TweenIn:Play();
+	CustomTweenOffset(100);
+	TweenIn.Completed:Connect(function()
+		delay(Delay, function()
+			local FlatIdent_1743D = 0;
+			while true do
+				if (FlatIdent_1743D == 0) then
+					TweenOut:Play();
+					CustomTweenOffset(100);
+					FlatIdent_1743D = 1;
+				end
+				if (FlatIdent_1743D == 1) then
+					TweenOut.Completed:Connect(function()
+						Notification:Destroy();
+					end);
+					break;
+				end
+			end
+		end);
+	end);
 end;
 repeat
 	wait();
@@ -159,12 +131,12 @@ local repo = "https://raw.githubusercontent.com/khen791/library/main/";
 local Library = loadstring(game:HttpGet(repo .. "main.txt"))();
 local ThemeManager = loadstring(game:HttpGet(repo .. "nini/ThemeManager.lua"))();
 local SaveManager = loadstring(game:HttpGet(repo .. "nini/SaveManager.lua"))();
-Library:Notify("neonaim.cc");
+Library:Notify("khen.cc");
 wait(1);
 local player = game.Players.LocalPlayer;
 local playerGuii = player:WaitForChild("PlayerGui");
 local screenGui = Instance.new("ScreenGui");
-screenGui.Name = "neonaim.cc";
+screenGui.Name = "khen.cc";
 screenGui.Parent = playerGuii;
 screenGui.ResetOnSpawn = false;
 screenGui.IgnoreGuiInset = true;
@@ -172,7 +144,7 @@ local frame = Instance.new("Frame");
 frame.Parent = screenGui;
 frame.Position = UDim2.new(1, -90, 0, 10);
 frame.Size = UDim2.new(0, 60, 0, 50);
-frame.BackgroundColor3 = Color3.fromRGB(15, 15, 15);
+frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30);
 frame.BorderSizePixel = 0;
 frame.Active = true;
 local frameCorner = Instance.new("UICorner");
@@ -205,14 +177,14 @@ local dragging = false;
 local dragStart = nil;
 local startPos = nil;
 local function startDrag(input)
-	local FlatIdent_A9A3 = 0;
+	local FlatIdent_25011 = 0;
 	while true do
-		if (FlatIdent_A9A3 == 0) then
+		if (FlatIdent_25011 == 0) then
 			dragging = true;
 			dragStart = input.Position;
-			FlatIdent_A9A3 = 1;
+			FlatIdent_25011 = 1;
 		end
-		if (1 == FlatIdent_A9A3) then
+		if (FlatIdent_25011 == 1) then
 			startPos = frame.Position;
 			break;
 		end
@@ -220,22 +192,10 @@ local function startDrag(input)
 end
 local function updateDrag(input)
 	if dragging then
-		local FlatIdent_2FD19 = 0;
-		local delta;
-		local newX;
-		local newY;
-		while true do
-			if (FlatIdent_2FD19 == 0) then
-				delta = input.Position - dragStart;
-				newX = math.clamp(startPos.X.Offset + delta.X, 0, playerGui.AbsoluteSize.X - frame.Size.X.Offset);
-				FlatIdent_2FD19 = 1;
-			end
-			if (FlatIdent_2FD19 == 1) then
-				newY = math.clamp(startPos.Y.Offset + delta.Y, 0, playerGui.AbsoluteSize.Y - frame.Size.Y.Offset);
-				frame.Position = UDim2.new(0, newX, 0, newY);
-				break;
-			end
-		end
+		local delta = input.Position - dragStart;
+		local newX = math.clamp(startPos.X.Offset + delta.X, 0, playerGui.AbsoluteSize.X - frame.Size.X.Offset);
+		local newY = math.clamp(startPos.Y.Offset + delta.Y, 0, playerGui.AbsoluteSize.Y - frame.Size.Y.Offset);
+		frame.Position = UDim2.new(0, newX, 0, newY);
 	end
 end
 frame.InputBegan:Connect(function(input)
@@ -254,54 +214,54 @@ frame.InputEnded:Connect(function(input)
 	end
 end);
 button.MouseEnter:Connect(function()
-	buttonHover.Transparency = 0.8;
-	button.BackgroundColor3 = Color3.fromRGB(0, 140, 235);
-end);
-button.MouseLeave:Connect(function()
-	local FlatIdent_9147D = 0;
+	local FlatIdent_1076E = 0;
 	while true do
-		if (FlatIdent_9147D == 0) then
-			buttonHover.Transparency = 1;
-			button.BackgroundColor3 = Color3.fromRGB(0, 120, 215);
+		if (FlatIdent_1076E == 0) then
+			buttonHover.Transparency = 0.8;
+			button.BackgroundColor3 = Color3.fromRGB(0, 140, 235);
 			break;
 		end
 	end
 end);
+button.MouseLeave:Connect(function()
+	buttonHover.Transparency = 1;
+	button.BackgroundColor3 = Color3.fromRGB(0, 120, 215);
+end);
 button.MouseButton1Click:Connect(function()
 	Library:Toggle();
 end);
-local Window = Library:CreateWindow({Title="neonaim.cc.cc [neonaim.cc]",Center=true,AutoShow=true,Size=UDim2.new(0, 450, 0, 380)});
-local Tabs = {Main=Window:AddTab("Main"),Rage=Window:AddTab("Visuals"),Settings=Window:AddTab("Configuration")};
+local Window = Library:CreateWindow({Title="neonaim.cc",Center=true,AutoShow=true,Size=UDim2.new(0, 450, 0, 380)});
+local Tabs = {Main=Window:AddTab("Main"),Rage=Window:AddTab("Visuals"),["UI Settings"]=Window:AddTab("Configuration")};
 Library:SetWatermarkVisibility(true);
 local FrameTimer = tick();
 local FrameCounter = 0;
 local FPS = 60;
 local WatermarkConnection = game:GetService("RunService").RenderStepped:Connect(function()
-	local FlatIdent_6A83E = 0;
+	local FlatIdent_C460 = 0;
 	local currentTime;
 	while true do
-		if (FlatIdent_6A83E == 1) then
-			currentTime = os.date("%H:%M:%S");
-			Library:SetWatermark(("neonaim.cc | %s fps | %s ms | Time: %s"):format(math.floor(FPS), math.floor(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue()), currentTime));
-			break;
-		end
-		if (FlatIdent_6A83E == 0) then
+		if (FlatIdent_C460 == 0) then
 			FrameCounter += 1
 			if ((tick() - FrameTimer) >= 1) then
-				local FlatIdent_12544 = 0;
+				local FlatIdent_7F35E = 0;
 				while true do
-					if (FlatIdent_12544 == 0) then
-						FPS = FrameCounter;
-						FrameTimer = tick();
-						FlatIdent_12544 = 1;
-					end
-					if (FlatIdent_12544 == 1) then
+					if (1 == FlatIdent_7F35E) then
 						FrameCounter = 0;
 						break;
 					end
+					if (FlatIdent_7F35E == 0) then
+						FPS = FrameCounter;
+						FrameTimer = tick();
+						FlatIdent_7F35E = 1;
+					end
 				end
 			end
-			FlatIdent_6A83E = 1;
+			FlatIdent_C460 = 1;
+		end
+		if (FlatIdent_C460 == 1) then
+			currentTime = os.date("%H:%M:%S");
+			Library:SetWatermark(("neonaim.cc | %s fps | %s ms | Time: %s"):format(math.floor(FPS), math.floor(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue()), currentTime));
+			break;
 		end
 	end
 end);
@@ -334,16 +294,16 @@ safe:AddInput("Value", {Default="0.5",Numeric=true,Finished=false,Text="Value",T
 	venus.Safety = value;
 end});
 set:AddToggle("Enable AutoPrediction", {Text="Enable AutoPrediction",Default=false,Tooltip="Enable",Callback=function(state)
-	local FlatIdent_74348 = 0;
+	local FlatIdent_455BF = 0;
 	while true do
-		if (FlatIdent_74348 == 1) then
+		if (FlatIdent_455BF == 1) then
 			venus.TargetAimEnabled = state;
 			break;
 		end
-		if (FlatIdent_74348 == 0) then
+		if (FlatIdent_455BF == 0) then
 			venus.AutoPred = state;
 			venus.CamlockEnabled = state;
-			FlatIdent_74348 = 1;
+			FlatIdent_455BF = 1;
 		end
 	end
 end});
@@ -369,14 +329,8 @@ tar:AddInput("Target Strafe Height", {Default="10",Numeric=true,Finished=false,T
 	venus.cframe.TargetStrafe.Height = tonumber(value) or venus.cframe.TargetStrafe.Height;
 end});
 set:AddDropdown("Hitpart", {Values={"Head","UpperTorso","HumanoidRootPart","LowerTorso","LeftUpperArm","RightUpperArm","LeftLeg","RightLeg"},Default=1,Multi=false,Text="Hitpart",Tooltip="Choose the hit part",Callback=function(value)
-	local FlatIdent_981A3 = 0;
-	while true do
-		if (FlatIdent_981A3 == 0) then
-			venus.AimPart = value;
-			camlock.AimPart = value;
-			break;
-		end
-	end
+	venus.AimPart = value;
+	camlock.AimPart = value;
 end});
 assist:AddToggle("Enable TargetAim", {Text="Enable Target Aim",Default=false,Tooltip="Enable",Callback=function(state)
 	targetaim.enabled = state;
@@ -388,9 +342,9 @@ local function onHeartbeat()
 		if ((Target ~= localPlayer) and Target.Character) then
 			for _, Part in pairs(Target.Character:GetDescendants()) do
 				if Part:IsA("BasePart") then
-					local FlatIdent_6B983 = 0;
+					local FlatIdent_703C8 = 0;
 					while true do
-						if (FlatIdent_6B983 == 0) then
+						if (FlatIdent_703C8 == 0) then
 							Part.Velocity = Target.Character.Humanoid.MoveDirection * 16;
 							Part.AssemblyLinearVelocity = Target.Character.Humanoid.MoveDirection * 16;
 							break;
@@ -411,25 +365,19 @@ air:AddInput("JumpOffset", {Default="Air Offset",Numeric=true,Finished=false,Tex
 	venus.JumpOffset = tonumber(value) or 0;
 end});
 cframe:AddToggle("Enable cframe", {Text="cframe",Default=false,Tooltip="Enable CFrame Speed",Callback=function(state)
-	local FlatIdent_7909D = 0;
-	while true do
-		if (FlatIdent_7909D == 0) then
-			venus.cframe.enabled = state;
-			if venus.cframe.enabled then
-				while venus.cframe.enabled do
-					local FlatIdent_64E40 = 0;
-					while true do
-						if (FlatIdent_64E40 == 0) then
-							if (game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")) then
-								game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + (game.Players.LocalPlayer.Character.Humanoid.MoveDirection * venus.cframe.speed);
-							end
-							game:GetService("RunService").Stepped:Wait();
-							break;
-						end
+	venus.cframe.enabled = state;
+	if venus.cframe.enabled then
+		while venus.cframe.enabled do
+			local FlatIdent_9147D = 0;
+			while true do
+				if (FlatIdent_9147D == 0) then
+					if (game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")) then
+						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + (game.Players.LocalPlayer.Character.Humanoid.MoveDirection * venus.cframe.speed);
 					end
+					game:GetService("RunService").Stepped:Wait();
+					break;
 				end
 			end
-			break;
 		end
 	end
 end});
@@ -438,23 +386,11 @@ cframe:AddSlider("cframe speed", {Text="CFrame Speed",Default=0,Min=0,Max=50,Rou
 end});
 game:GetService("UserInputService").InputBegan:Connect(function(input)
 	if (input.KeyCode == Enum.KeyCode.LeftBracket) then
-		local FlatIdent_8D1A5 = 0;
-		while true do
-			if (0 == FlatIdent_8D1A5) then
-				venus.cframe.speed = venus.cframe.speed + 0.01;
-				print("Speed: " .. venus.cframe.speed);
-				break;
-			end
-		end
+		venus.cframe.speed = venus.cframe.speed + 0.01;
+		print("Speed: " .. venus.cframe.speed);
 	elseif (input.KeyCode == Enum.KeyCode.RightBracket) then
-		local FlatIdent_8B523 = 0;
-		while true do
-			if (FlatIdent_8B523 == 0) then
-				venus.cframe.speed = venus.cframe.speed - 0.01;
-				print("Speed: " .. venus.cframe.speed);
-				break;
-			end
-		end
+		venus.cframe.speed = venus.cframe.speed - 0.01;
+		print("Speed: " .. venus.cframe.speed);
 	end
 end);
 local velMax = 128 ^ 2;
@@ -475,14 +411,32 @@ local function Sleep()
 	Property(Root, "NetworkIsSleeping", true);
 end
 local function Init()
-	local rootVel = Root.Velocity;
-	local rootAng = Random(-180, 180);
-	local rootOffset = Vector(Random(-velMax, velMax), -Random(0, velMax), Random(-velMax, velMax));
-	Root.CFrame *= Angle(0, Radian(rootAng), 0)
-	Root.Velocity = rootOffset;
-	runRenWait(runRen);
-	Root.CFrame *= Angle(0, Radian(-rootAng), 0)
-	Root.Velocity = rootVel;
+	local FlatIdent_6A83E = 0;
+	local rootVel;
+	local rootAng;
+	local rootOffset;
+	while true do
+		if (FlatIdent_6A83E == 2) then
+			Root.Velocity = rootOffset;
+			runRenWait(runRen);
+			FlatIdent_6A83E = 3;
+		end
+		if (FlatIdent_6A83E == 0) then
+			rootVel = Root.Velocity;
+			rootAng = Random(-180, 180);
+			FlatIdent_6A83E = 1;
+		end
+		if (FlatIdent_6A83E == 3) then
+			Root.CFrame *= Angle(0, Radian(-rootAng), 0)
+			Root.Velocity = rootVel;
+			break;
+		end
+		if (FlatIdent_6A83E == 1) then
+			rootOffset = Vector(Random(-velMax, velMax), -Random(0, velMax), Random(-velMax, velMax));
+			Root.CFrame *= Angle(0, Radian(rootAng), 0)
+			FlatIdent_6A83E = 2;
+		end
+	end
 end
 local Players = game:GetService("Players");
 local localPlayer = Players.LocalPlayer;
@@ -491,32 +445,32 @@ local humanoid = character:WaitForChild("Humanoid");
 local GROUND_SHOT_THRESHOLD = 5;
 local DETECTION_RANGE = 20;
 local function isGroundShot(hitPosition)
-	local FlatIdent_20FB0 = 0;
+	local FlatIdent_66799 = 0;
 	local rootPart;
 	local feetPosition;
 	local distanceToFeet;
 	while true do
-		if (0 == FlatIdent_20FB0) then
+		if (FlatIdent_66799 == 0) then
 			rootPart = character:FindFirstChild("HumanoidRootPart");
 			if not rootPart then
 				return false;
 			end
-			FlatIdent_20FB0 = 1;
+			FlatIdent_66799 = 1;
 		end
-		if (FlatIdent_20FB0 == 1) then
+		if (FlatIdent_66799 == 1) then
 			feetPosition = rootPart.Position - Vector3.new(0, character:FindFirstChild("Humanoid").HipHeight, 0);
 			distanceToFeet = (hitPosition - feetPosition).Magnitude;
-			FlatIdent_20FB0 = 2;
+			FlatIdent_66799 = 2;
 		end
-		if (FlatIdent_20FB0 == 2) then
+		if (FlatIdent_66799 == 2) then
 			return distanceToFeet <= GROUND_SHOT_THRESHOLD;
 		end
 	end
 end
 local function onCharacterAdded(newCharacter)
-	local FlatIdent_6C033 = 0;
+	local FlatIdent_494DF = 0;
 	while true do
-		if (0 == FlatIdent_6C033) then
+		if (FlatIdent_494DF == 0) then
 			character = newCharacter;
 			humanoid = character:WaitForChild("Humanoid");
 			break;
@@ -539,36 +493,28 @@ print("€");
 local desyncEnabled = false;
 local desyncLoop;
 local function toggleDesync(state)
-	local FlatIdent_5B2CE = 0;
+	local FlatIdent_27404 = 0;
 	while true do
-		if (FlatIdent_5B2CE == 0) then
+		if (FlatIdent_27404 == 0) then
 			desyncEnabled = state;
 			if desyncEnabled then
 				desyncLoop = Run.Heartbeat:Connect(function()
-					local FlatIdent_2E9CB = 0;
-					local chokeClient;
-					local chokeServer;
-					while true do
-						if (FlatIdent_2E9CB == 1) then
-							chokeClient, chokeServer = runBeatCon(runBeat, Sleep), runRenCon(runRen, Sleep);
-							Wait(Ceil(Ping(statPing)) / 1000);
-							FlatIdent_2E9CB = 2;
-						end
-						if (FlatIdent_2E9CB == 0) then
-							Init();
-							Wait(timeRelease);
-							FlatIdent_2E9CB = 1;
-						end
-						if (FlatIdent_2E9CB == 2) then
-							chokeClient:Disconnect();
-							chokeServer:Disconnect();
-							break;
-						end
-					end
+					Init();
+					Wait(timeRelease);
+					local chokeClient, chokeServer = runBeatCon(runBeat, Sleep), runRenCon(runRen, Sleep);
+					Wait(Ceil(Ping(statPing)) / 1000);
+					chokeClient:Disconnect();
+					chokeServer:Disconnect();
 				end);
 			elseif desyncLoop then
-				desyncLoop:Disconnect();
-				desyncLoop = nil;
+				local FlatIdent_9622C = 0;
+				while true do
+					if (FlatIdent_9622C == 0) then
+						desyncLoop:Disconnect();
+						desyncLoop = nil;
+						break;
+					end
+				end
 			end
 			break;
 		end
@@ -579,36 +525,26 @@ anti:AddToggle("Enable Desync", {Text="Invisible Desync",Default=false,Tooltip="
 end});
 net:AddToggle("Enable Network Sleep", {Text="Network FF",Default=false,Tooltip="Toggle to simulate network sleep and enhance lag",Callback=function(state)
 	if state then
-		local FlatIdent_69253 = 0;
+		local FlatIdent_2D88C = 0;
 		local UserInputService;
 		local Players;
 		local Client;
 		local MainThread;
 		while true do
-			if (1 == FlatIdent_69253) then
-				Players = game:GetService("Players");
-				Client = Players.LocalPlayer;
-				FlatIdent_69253 = 2;
-			end
-			if (0 == FlatIdent_69253) then
-				setfflag("S2PhysicsSenderRate", 2);
-				UserInputService = game:GetService("UserInputService");
-				FlatIdent_69253 = 1;
-			end
-			if (FlatIdent_69253 == 2) then
+			if (2 == FlatIdent_2D88C) then
 				MainThread = task.spawn(function()
 					while state do
 						if (Client.Character and Client.Character:FindFirstChild("HumanoidRootPart")) then
-							local FlatIdent_90A41 = 0;
+							local FlatIdent_20FB0 = 0;
 							while true do
-								if (FlatIdent_90A41 == 1) then
-									sethiddenproperty(Client.Character.HumanoidRootPart, "NetworkIsSleeping", false);
-									break;
-								end
-								if (FlatIdent_90A41 == 0) then
+								if (0 == FlatIdent_20FB0) then
 									sethiddenproperty(Client.Character.HumanoidRootPart, "NetworkIsSleeping", true);
 									task.wait();
-									FlatIdent_90A41 = 1;
+									FlatIdent_20FB0 = 1;
+								end
+								if (FlatIdent_20FB0 == 1) then
+									sethiddenproperty(Client.Character.HumanoidRootPart, "NetworkIsSleeping", false);
+									break;
 								end
 							end
 						end
@@ -617,52 +553,42 @@ net:AddToggle("Enable Network Sleep", {Text="Network FF",Default=false,Tooltip="
 				end);
 				break;
 			end
+			if (FlatIdent_2D88C == 0) then
+				setfflag("S2PhysicsSenderRate", 2);
+				UserInputService = game:GetService("UserInputService");
+				FlatIdent_2D88C = 1;
+			end
+			if (1 == FlatIdent_2D88C) then
+				Players = game:GetService("Players");
+				Client = Players.LocalPlayer;
+				FlatIdent_2D88C = 2;
+			end
 		end
 	else
-		local FlatIdent_7DFA5 = 0;
-		local Client;
-		while true do
-			if (FlatIdent_7DFA5 == 1) then
-				if (Client.Character and Client.Character:FindFirstChild("HumanoidRootPart")) then
-					sethiddenproperty(Client.Character.HumanoidRootPart, "NetworkIsSleeping", false);
-				end
-				break;
-			end
-			if (FlatIdent_7DFA5 == 0) then
-				setfflag("S2PhysicsSenderRate", 13);
-				Client = Players.LocalPlayer;
-				FlatIdent_7DFA5 = 1;
-			end
+		setfflag("S2PhysicsSenderRate", 13);
+		local Client = Players.LocalPlayer;
+		if (Client.Character and Client.Character:FindFirstChild("HumanoidRootPart")) then
+			sethiddenproperty(Client.Character.HumanoidRootPart, "NetworkIsSleeping", false);
 		end
 	end
 end});
 game:GetService("RunService").Heartbeat:Connect(function()
-	local FlatIdent_25A9F = 0;
+	local FlatIdent_89237 = 0;
 	local player;
 	local character;
 	while true do
-		if (FlatIdent_25A9F == 0) then
+		if (FlatIdent_89237 == 0) then
 			player = game.Players.LocalPlayer;
 			character = player.Character;
-			FlatIdent_25A9F = 1;
+			FlatIdent_89237 = 1;
 		end
-		if (FlatIdent_25A9F == 1) then
+		if (FlatIdent_89237 == 1) then
 			if (character and character:FindFirstChild("HumanoidRootPart")) then
-				local FlatIdent_691EB = 0;
+				local FlatIdent_5B2CE = 0;
 				local humanoidRootPart;
 				local vel;
 				while true do
-					if (FlatIdent_691EB == 2) then
-						game:GetService("RunService").RenderStepped:Wait();
-						humanoidRootPart.Velocity = vel;
-						break;
-					end
-					if (FlatIdent_691EB == 0) then
-						humanoidRootPart = character.HumanoidRootPart;
-						vel = humanoidRootPart.Velocity;
-						FlatIdent_691EB = 1;
-					end
-					if (FlatIdent_691EB == 1) then
+					if (FlatIdent_5B2CE == 1) then
 						if (getgenv().cframespeedtoggle == true) then
 							humanoidRootPart.CFrame = humanoidRootPart.CFrame + ((character.Humanoid.MoveDirection * getgenv().speedvalue) / 0.5);
 						end
@@ -673,7 +599,17 @@ game:GetService("RunService").Heartbeat:Connect(function()
 								humanoidRootPart.Velocity = Vector3.new(0, 100, 0);
 							end
 						end
-						FlatIdent_691EB = 2;
+						FlatIdent_5B2CE = 2;
+					end
+					if (FlatIdent_5B2CE == 2) then
+						game:GetService("RunService").RenderStepped:Wait();
+						humanoidRootPart.Velocity = vel;
+						break;
+					end
+					if (FlatIdent_5B2CE == 0) then
+						humanoidRootPart = character.HumanoidRootPart;
+						vel = humanoidRootPart.Velocity;
+						FlatIdent_5B2CE = 1;
 					end
 				end
 			end
@@ -682,9 +618,9 @@ game:GetService("RunService").Heartbeat:Connect(function()
 	end
 end);
 ant:AddToggle("Enable Anti Lock", {Text="Enable Anti Lock",Default=false,Tooltip="Toggle Anti Lock",Callback=function(state)
-	local FlatIdent_8ABD6 = 0;
+	local FlatIdent_47ABB = 0;
 	while true do
-		if (FlatIdent_8ABD6 == 0) then
+		if (FlatIdent_47ABB == 0) then
 			getgenv().Venus = getgenv().Venus or {};
 			getgenv().Venus.AntiEnabled = state;
 			break;
@@ -692,26 +628,32 @@ ant:AddToggle("Enable Anti Lock", {Text="Enable Anti Lock",Default=false,Tooltip
 	end
 end});
 ant:AddDropdown("AntiLockMode", {Values={"Sky","Predbreaker"},Default=1,Multi=false,Text="Anti Lock Mode",Tooltip="Choose Anti Lock mode",Callback=function(value)
-	getgenv().Venus = getgenv().Venus or {};
-	getgenv().Venus.AntiLock = value;
+	local FlatIdent_69253 = 0;
+	while true do
+		if (0 == FlatIdent_69253) then
+			getgenv().Venus = getgenv().Venus or {};
+			getgenv().Venus.AntiLock = value;
+			break;
+		end
+	end
 end});
 anti:AddToggle("Desync Velocity", {Text="Velocity Manipulation",Default=false,Tooltip="Toggles the manipulation of velocity",Callback=function(state)
 	getgenv().demisethebest = state;
 end});
 game:GetService("RunService").heartbeat:Connect(function()
 	if (getgenv().demisethebest == true) then
-		local FlatIdent_40070 = 0;
+		local FlatIdent_8B336 = 0;
 		local abc;
 		while true do
-			if (FlatIdent_40070 == 0) then
-				abc = game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity;
-				game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(1, 1, 1) * (2 ^ 16);
-				FlatIdent_40070 = 1;
-			end
-			if (1 == FlatIdent_40070) then
+			if (FlatIdent_8B336 == 1) then
 				game:GetService("RunService").RenderStepped:Wait();
 				game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = abc;
 				break;
+			end
+			if (FlatIdent_8B336 == 0) then
+				abc = game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity;
+				game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(1, 1, 1) * (2 ^ 16);
+				FlatIdent_8B336 = 1;
 			end
 		end
 	end
@@ -723,14 +665,8 @@ anti:AddToggle("Enable Freefall Speed", {Text="Freefall Velocity Boost",Default=
 end});
 Plr.Character:WaitForChild("Humanoid").StateChanged:Connect(function(old, new)
 	if (StateEnabled and (new == Enum.HumanoidStateType.Freefall)) then
-		local FlatIdent_2A9F7 = 0;
-		while true do
-			if (FlatIdent_2A9F7 == 0) then
-				wait(0.27);
-				game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0, -15, 0);
-				break;
-			end
-		end
+		wait(0.27);
+		game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0, -15, 0);
 	end
 end);
 net:AddToggle("Enable Underground", {Text="Underground",Default=false,Tooltip="Toggles the underground velocity manipulation",Callback=function(state)
@@ -742,20 +678,10 @@ end});
 getgenv().UndergroundAmount = 825;
 game:GetService("RunService").heartbeat:Connect(function()
 	if getgenv().Underground then
-		local FlatIdent_91B54 = 0;
-		local vel;
-		while true do
-			if (FlatIdent_91B54 == 1) then
-				game:GetService("RunService").RenderStepped:Wait();
-				game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = vel;
-				break;
-			end
-			if (FlatIdent_91B54 == 0) then
-				vel = game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity;
-				game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0, -getgenv().UndergroundAmount, 0);
-				FlatIdent_91B54 = 1;
-			end
-		end
+		local vel = game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity;
+		game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0, -getgenv().UndergroundAmount, 0);
+		game:GetService("RunService").RenderStepped:Wait();
+		game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = vel;
 	end
 end);
 local flySpeed = 50;
@@ -766,48 +692,80 @@ local humanoid = character:FindFirstChildOfClass("Humanoid");
 local userInputService = game:GetService("UserInputService");
 local function startFlying()
 	if not flying then
-		flying = true;
-		humanoid.PlatformStand = true;
-		local bodyGyro = Instance.new("BodyGyro", character.PrimaryPart);
-		local bodyVelocity = Instance.new("BodyVelocity", character.PrimaryPart);
-		bodyGyro.P = 90000;
-		bodyGyro.MaxTorque = Vector3.new(8999999488, 8999999488, 8999999488);
-		bodyGyro.CFrame = workspace.CurrentCamera.CFrame;
-		bodyVelocity.MaxForce = Vector3.new(8999999488, 8999999488, 8999999488);
+		local FlatIdent_882F4 = 0;
+		local bodyGyro;
+		local bodyVelocity;
 		local connection;
-		connection = game:GetService("RunService").RenderStepped:Connect(function()
-			if flying then
+		while true do
+			if (FlatIdent_882F4 == 3) then
 				bodyGyro.CFrame = workspace.CurrentCamera.CFrame;
-				local moveDirection = Vector3.new(0, 0, 0);
-				if (humanoid.MoveDirection.Magnitude > 0) then
-					moveDirection = workspace.CurrentCamera.CFrame.LookVector * humanoid.MoveDirection.Magnitude;
-				end
-				local verticalVelocity = 0;
-				if userInputService:IsKeyDown(Enum.KeyCode.Space) then
-					verticalVelocity = flySpeed;
-				elseif userInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
-					verticalVelocity = -flySpeed;
-				end
-				bodyVelocity.Velocity = (moveDirection * flySpeed) + Vector3.new(0, verticalVelocity, 0);
-				humanoid:ChangeState(Enum.HumanoidStateType.Freefall);
-			else
-				local FlatIdent_5E109 = 0;
-				while true do
-					if (FlatIdent_5E109 == 0) then
+				bodyVelocity.MaxForce = Vector3.new(8999999488, 8999999488, 8999999488);
+				FlatIdent_882F4 = 4;
+			end
+			if (FlatIdent_882F4 == 2) then
+				bodyGyro.P = 90000;
+				bodyGyro.MaxTorque = Vector3.new(8999999488, 8999999488, 8999999488);
+				FlatIdent_882F4 = 3;
+			end
+			if (FlatIdent_882F4 == 0) then
+				flying = true;
+				humanoid.PlatformStand = true;
+				FlatIdent_882F4 = 1;
+			end
+			if (FlatIdent_882F4 == 4) then
+				connection = nil;
+				connection = game:GetService("RunService").RenderStepped:Connect(function()
+					if flying then
+						local FlatIdent_1FC27 = 0;
+						local moveDirection;
+						local verticalVelocity;
+						while true do
+							if (FlatIdent_1FC27 == 2) then
+								if userInputService:IsKeyDown(Enum.KeyCode.Space) then
+									verticalVelocity = flySpeed;
+								elseif userInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
+									verticalVelocity = -flySpeed;
+								end
+								bodyVelocity.Velocity = (moveDirection * flySpeed) + Vector3.new(0, verticalVelocity, 0);
+								FlatIdent_1FC27 = 3;
+							end
+							if (FlatIdent_1FC27 == 3) then
+								humanoid:ChangeState(Enum.HumanoidStateType.Freefall);
+								break;
+							end
+							if (FlatIdent_1FC27 == 0) then
+								bodyGyro.CFrame = workspace.CurrentCamera.CFrame;
+								moveDirection = Vector3.new(0, 0, 0);
+								FlatIdent_1FC27 = 1;
+							end
+							if (FlatIdent_1FC27 == 1) then
+								if (humanoid.MoveDirection.Magnitude > 0) then
+									moveDirection = workspace.CurrentCamera.CFrame.LookVector * humanoid.MoveDirection.Magnitude;
+								end
+								verticalVelocity = 0;
+								FlatIdent_1FC27 = 2;
+							end
+						end
+					else
 						bodyVelocity.Velocity = Vector3.new(0, 0, 0);
 						connection:Disconnect();
-						break;
 					end
-				end
+				end);
+				break;
 			end
-		end);
+			if (FlatIdent_882F4 == 1) then
+				bodyGyro = Instance.new("BodyGyro", character.PrimaryPart);
+				bodyVelocity = Instance.new("BodyVelocity", character.PrimaryPart);
+				FlatIdent_882F4 = 2;
+			end
+		end
 	end
 end
 local function stopFlying()
 	if flying then
-		local FlatIdent_2DA99 = 0;
+		local FlatIdent_67517 = 0;
 		while true do
-			if (FlatIdent_2DA99 == 1) then
+			if (FlatIdent_67517 == 1) then
 				for _, v in pairs(character.PrimaryPart:GetChildren()) do
 					if (v:IsA("BodyGyro") or v:IsA("BodyVelocity")) then
 						v:Destroy();
@@ -815,10 +773,10 @@ local function stopFlying()
 				end
 				break;
 			end
-			if (FlatIdent_2DA99 == 0) then
+			if (FlatIdent_67517 == 0) then
 				flying = false;
 				humanoid.PlatformStand = false;
-				FlatIdent_2DA99 = 1;
+				FlatIdent_67517 = 1;
 			end
 		end
 	end
@@ -866,64 +824,41 @@ local function createJamkleBox(v)
 	local function boxesp()
 		game:GetService("RunService").RenderStepped:Connect(function()
 			if (v.Character and v.Character:FindFirstChild("Humanoid") and v.Character:FindFirstChild("HumanoidRootPart") and (v.Character.Humanoid.Health > 0)) then
-				local FlatIdent_7873D = 0;
-				local Vector;
-				local onScreen;
-				local RootPart;
-				local Head;
-				local RootPosition;
-				local RootVis;
-				local HeadPosition;
-				local LegPosition;
-				while true do
-					if (FlatIdent_7873D == 3) then
-						if (onScreen and healthBarEnabled) then
-							local FlatIdent_651C5 = 0;
-							local healthRatio;
-							while true do
-								if (FlatIdent_651C5 == 0) then
-									Box.Size = Vector2.new(1000 / RootPosition.Z, HeadPosition.Y - LegPosition.Y);
-									Box.Position = Vector2.new(RootPosition.X - (Box.Size.X / 2), RootPosition.Y - (Box.Size.Y / 2));
-									Box.Visible = true;
-									HealthBarOutline.From = Vector2.new(Box.Position.X - 6, Box.Position.Y);
-									FlatIdent_651C5 = 1;
-								end
-								if (FlatIdent_651C5 == 1) then
-									HealthBarOutline.To = Vector2.new(Box.Position.X - 6, Box.Position.Y + (HeadPosition.Y - LegPosition.Y));
-									HealthBarOutline.Visible = true;
-									healthRatio = v.Character.Humanoid.Health / v.Character.Humanoid.MaxHealth;
-									HealthBar.From = Vector2.new(Box.Position.X - 6, Box.Position.Y);
-									FlatIdent_651C5 = 2;
-								end
-								if (2 == FlatIdent_651C5) then
-									HealthBar.To = Vector2.new(Box.Position.X - 6, Box.Position.Y + ((HeadPosition.Y - LegPosition.Y) * healthRatio));
-									HealthBar.Color = Color3.fromRGB(255 * (1 - healthRatio), 255 * healthRatio, 0);
-									HealthBar.Visible = true;
-									break;
-								end
-							end
-						else
-							Box.Visible = false;
-							HealthBarOutline.Visible = false;
-							HealthBar.Visible = false;
+				local Vector, onScreen = camera:worldToViewportPoint(v.Character.HumanoidRootPart.Position);
+				local RootPart = v.Character.HumanoidRootPart;
+				local Head = v.Character.Head;
+				local RootPosition, RootVis = worldToViewportPoint(CurrentCamera, RootPart.Position);
+				local HeadPosition = worldToViewportPoint(CurrentCamera, Head.Position + HeadOff);
+				local LegPosition = worldToViewportPoint(CurrentCamera, RootPart.Position - LegOff);
+				if (onScreen and healthBarEnabled) then
+					local FlatIdent_91608 = 0;
+					local healthRatio;
+					while true do
+						if (FlatIdent_91608 == 1) then
+							HealthBarOutline.To = Vector2.new(Box.Position.X - 6, Box.Position.Y + (HeadPosition.Y - LegPosition.Y));
+							HealthBarOutline.Visible = true;
+							healthRatio = v.Character.Humanoid.Health / v.Character.Humanoid.MaxHealth;
+							HealthBar.From = Vector2.new(Box.Position.X - 6, Box.Position.Y);
+							FlatIdent_91608 = 2;
 						end
-						break;
+						if (FlatIdent_91608 == 2) then
+							HealthBar.To = Vector2.new(Box.Position.X - 6, Box.Position.Y + ((HeadPosition.Y - LegPosition.Y) * healthRatio));
+							HealthBar.Color = Color3.fromRGB(255 * (1 - healthRatio), 255 * healthRatio, 0);
+							HealthBar.Visible = true;
+							break;
+						end
+						if (FlatIdent_91608 == 0) then
+							Box.Size = Vector2.new(1000 / RootPosition.Z, HeadPosition.Y - LegPosition.Y);
+							Box.Position = Vector2.new(RootPosition.X - (Box.Size.X / 2), RootPosition.Y - (Box.Size.Y / 2));
+							Box.Visible = true;
+							HealthBarOutline.From = Vector2.new(Box.Position.X - 6, Box.Position.Y);
+							FlatIdent_91608 = 1;
+						end
 					end
-					if (FlatIdent_7873D == 2) then
-						HeadPosition = worldToViewportPoint(CurrentCamera, Head.Position + HeadOff);
-						LegPosition = worldToViewportPoint(CurrentCamera, RootPart.Position - LegOff);
-						FlatIdent_7873D = 3;
-					end
-					if (1 == FlatIdent_7873D) then
-						Head = v.Character.Head;
-						RootPosition, RootVis = worldToViewportPoint(CurrentCamera, RootPart.Position);
-						FlatIdent_7873D = 2;
-					end
-					if (FlatIdent_7873D == 0) then
-						Vector, onScreen = camera:worldToViewportPoint(v.Character.HumanoidRootPart.Position);
-						RootPart = v.Character.HumanoidRootPart;
-						FlatIdent_7873D = 1;
-					end
+				else
+					Box.Visible = false;
+					HealthBarOutline.Visible = false;
+					HealthBar.Visible = false;
 				end
 			else
 				Box.Visible = false;
@@ -958,28 +893,19 @@ for i, v in pairs(game.Players:GetChildren()) do
 	function lineesp()
 		game:GetService("RunService").RenderStepped:Connect(function()
 			if (tracersEnabled and (v.Character ~= nil) and (v.Character:FindFirstChild("Humanoid") ~= nil) and (v.Character:FindFirstChild("HumanoidRootPart") ~= nil) and (v ~= lplr) and (v.Character.Humanoid.Health > 0)) then
-				local FlatIdent_3B868 = 0;
+				local FlatIdent_53124 = 0;
 				local Vector;
 				local OnScreen;
 				while true do
-					if (FlatIdent_3B868 == 0) then
+					if (FlatIdent_53124 == 0) then
 						Vector, OnScreen = camera:worldToViewportPoint(v.Character.HumanoidRootPart.Position);
 						if OnScreen then
-							local FlatIdent_D14D = 0;
-							while true do
-								if (1 == FlatIdent_D14D) then
-									if (_G.TeamCheck and (v.TeamColor == lplr.TeamColor)) then
-										Tracer.Visible = false;
-									else
-										Tracer.Visible = true;
-									end
-									break;
-								end
-								if (FlatIdent_D14D == 0) then
-									Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1);
-									Tracer.To = Vector2.new(Vector.X, Vector.Y);
-									FlatIdent_D14D = 1;
-								end
+							Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1);
+							Tracer.To = Vector2.new(Vector.X, Vector.Y);
+							if (_G.TeamCheck and (v.TeamColor == lplr.TeamColor)) then
+								Tracer.Visible = false;
+							else
+								Tracer.Visible = true;
 							end
 						else
 							Tracer.Visible = false;
@@ -1003,28 +929,19 @@ game.Players.PlayerAdded:Connect(function(v)
 	function lineesp()
 		game:GetService("RunService").RenderStepped:Connect(function()
 			if (tracersEnabled and (v.Character ~= nil) and (v.Character:FindFirstChild("Humanoid") ~= nil) and (v.Character:FindFirstChild("HumanoidRootPart") ~= nil) and (v ~= lplr) and (v.Character.Humanoid.Health > 0)) then
-				local FlatIdent_31077 = 0;
+				local FlatIdent_44603 = 0;
 				local Vector;
 				local OnScreen;
 				while true do
-					if (FlatIdent_31077 == 0) then
+					if (FlatIdent_44603 == 0) then
 						Vector, OnScreen = camera:worldToViewportPoint(v.Character.HumanoidRootPart.Position);
 						if OnScreen then
-							local FlatIdent_835BC = 0;
-							while true do
-								if (FlatIdent_835BC == 1) then
-									if (_G.TeamCheck and (v.TeamColor == lplr.TeamColor)) then
-										Tracer.Visible = false;
-									else
-										Tracer.Visible = true;
-									end
-									break;
-								end
-								if (0 == FlatIdent_835BC) then
-									Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1);
-									Tracer.To = Vector2.new(Vector.X, Vector.Y);
-									FlatIdent_835BC = 1;
-								end
+							Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1);
+							Tracer.To = Vector2.new(Vector.X, Vector.Y);
+							if (_G.TeamCheck and (v.TeamColor == lplr.TeamColor)) then
+								Tracer.Visible = false;
+							else
+								Tracer.Visible = true;
 							end
 						else
 							Tracer.Visible = false;
@@ -1072,52 +989,77 @@ end
 runservice.PostSimulation:Connect(function()
 	local _tick = tick();
 	if ((_tick - last_render) > crosshair.refreshrate) then
-		local FlatIdent_7B2D6 = 0;
+		local FlatIdent_854BA = 0;
 		local position;
 		local text_1;
 		local text_2;
 		while true do
-			if (3 == FlatIdent_7B2D6) then
+			if (FlatIdent_854BA == 1) then
+				text_1 = drawings.text[1];
+				text_2 = drawings.text[2];
+				FlatIdent_854BA = 2;
+			end
+			if (FlatIdent_854BA == 3) then
 				if CrosshairEnabled then
-					local text_x = text_1.TextBounds.X + text_2.TextBounds.X;
-					text_1.Position = position + Vector2.new(-text_x / 2, crosshair.radius + ((crosshair.resize and crosshair.resize_max) or crosshair.length) + 5);
-					text_2.Position = text_1.Position + Vector2.new(text_1.TextBounds.X, 0);
-					text_2.Color = Color3.fromRGB(86, 87, 142);
-					for idx = 1, 4 do
-						local outline = drawings.crosshair[idx];
-						local inline = drawings.crosshair[idx + 4];
-						local angle = (idx - 1) * 90;
-						local length = crosshair.length;
-						if crosshair.spin then
-							local spin_angle = (-_tick * crosshair.spin_speed) % crosshair.spin_max;
-							angle = angle + (tweenservice:GetValue(spin_angle / 360, crosshair.spin_style, Enum.EasingDirection.InOut) * 360);
+					local FlatIdent_92F66 = 0;
+					local text_x;
+					while true do
+						if (FlatIdent_92F66 == 0) then
+							text_x = text_1.TextBounds.X + text_2.TextBounds.X;
+							text_1.Position = position + Vector2.new(-text_x / 2, crosshair.radius + ((crosshair.resize and crosshair.resize_max) or crosshair.length) + 5);
+							FlatIdent_92F66 = 1;
 						end
-						if crosshair.resize then
-							local FlatIdent_229D1 = 0;
-							local resize_length;
-							while true do
-								if (FlatIdent_229D1 == 0) then
-									resize_length = (tick() * crosshair.resize_speed) % 180;
-									length = crosshair.resize_min + (math.sin(math.rad(resize_length)) * crosshair.resize_max);
-									break;
+						if (FlatIdent_92F66 == 1) then
+							text_2.Position = text_1.Position + Vector2.new(text_1.TextBounds.X, 0);
+							text_2.Color = Color3.fromRGB(86, 87, 142);
+							FlatIdent_92F66 = 2;
+						end
+						if (FlatIdent_92F66 == 2) then
+							for idx = 1, 4 do
+								local outline = drawings.crosshair[idx];
+								local inline = drawings.crosshair[idx + 4];
+								local angle = (idx - 1) * 90;
+								local length = crosshair.length;
+								if crosshair.spin then
+									local FlatIdent_6E549 = 0;
+									local spin_angle;
+									while true do
+										if (FlatIdent_6E549 == 0) then
+											spin_angle = (-_tick * crosshair.spin_speed) % crosshair.spin_max;
+											angle = angle + (tweenservice:GetValue(spin_angle / 360, crosshair.spin_style, Enum.EasingDirection.InOut) * 360);
+											break;
+										end
+									end
 								end
+								if crosshair.resize then
+									local FlatIdent_21CA5 = 0;
+									local resize_length;
+									while true do
+										if (FlatIdent_21CA5 == 0) then
+											resize_length = (tick() * crosshair.resize_speed) % 180;
+											length = crosshair.resize_min + (math.sin(math.rad(resize_length)) * crosshair.resize_max);
+											break;
+										end
+									end
+								end
+								inline.Visible = true;
+								inline.Color = Color3.fromRGB(86, 87, 142);
+								inline.From = position + solve(angle, crosshair.radius);
+								inline.To = position + solve(angle, crosshair.radius + length);
+								inline.Thickness = crosshair.width;
+								outline.Visible = true;
+								outline.From = position + solve(angle, crosshair.radius - 1);
+								outline.To = position + solve(angle, crosshair.radius + length + 1);
+								outline.Thickness = crosshair.width + 1.5;
 							end
+							break;
 						end
-						inline.Visible = true;
-						inline.Color = Color3.fromRGB(86, 87, 142);
-						inline.From = position + solve(angle, crosshair.radius);
-						inline.To = position + solve(angle, crosshair.radius + length);
-						inline.Thickness = crosshair.width;
-						outline.Visible = true;
-						outline.From = position + solve(angle, crosshair.radius - 1);
-						outline.To = position + solve(angle, crosshair.radius + length + 1);
-						outline.Thickness = crosshair.width + 1.5;
 					end
 				else
 					for idx = 1, 4 do
-						local FlatIdent_71E8F = 0;
+						local FlatIdent_7517F = 0;
 						while true do
-							if (FlatIdent_71E8F == 0) then
+							if (0 == FlatIdent_7517F) then
 								drawings.crosshair[idx].Visible = false;
 								drawings.crosshair[idx + 4].Visible = false;
 								break;
@@ -1127,20 +1069,15 @@ runservice.PostSimulation:Connect(function()
 				end
 				break;
 			end
-			if (FlatIdent_7B2D6 == 2) then
+			if (FlatIdent_854BA == 2) then
 				text_1.Visible = CrosshairEnabled;
 				text_2.Visible = CrosshairEnabled;
-				FlatIdent_7B2D6 = 3;
+				FlatIdent_854BA = 3;
 			end
-			if (FlatIdent_7B2D6 == 1) then
-				text_1 = drawings.text[1];
-				text_2 = drawings.text[2];
-				FlatIdent_7B2D6 = 2;
-			end
-			if (FlatIdent_7B2D6 == 0) then
+			if (FlatIdent_854BA == 0) then
 				last_render = _tick;
 				position = camera.ViewportSize / 2;
-				FlatIdent_7B2D6 = 1;
+				FlatIdent_854BA = 1;
 			end
 		end
 	end
@@ -1158,9 +1095,9 @@ spawn(function()
 		for _, part in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 			if part:IsA("MeshPart") then
 				if effectEnabled then
-					local FlatIdent_51C44 = 0;
+					local FlatIdent_43BEE = 0;
 					while true do
-						if (FlatIdent_51C44 == 0) then
+						if (0 == FlatIdent_43BEE) then
 							part.Material = Enum.Material.ForceField;
 							part.Color = forceFieldColor;
 							break;
@@ -1190,12 +1127,24 @@ local function enableFog()
 	print("Intense fog enabled with color:", fogColor);
 end
 local function disableFog()
-	Lighting.FogColor = Color3.fromRGB(255, 255, 255);
-	Lighting.FogStart = 10000;
-	Lighting.FogEnd = 10000;
-	Lighting.Brightness = 1;
-	Lighting.OutdoorAmbient = Color3.fromRGB(127, 127, 127);
-	print("Fog disabled.");
+	local FlatIdent_2BE68 = 0;
+	while true do
+		if (FlatIdent_2BE68 == 2) then
+			Lighting.OutdoorAmbient = Color3.fromRGB(127, 127, 127);
+			print("Fog disabled.");
+			break;
+		end
+		if (FlatIdent_2BE68 == 1) then
+			Lighting.FogEnd = 10000;
+			Lighting.Brightness = 1;
+			FlatIdent_2BE68 = 2;
+		end
+		if (FlatIdent_2BE68 == 0) then
+			Lighting.FogColor = Color3.fromRGB(255, 255, 255);
+			Lighting.FogStart = 10000;
+			FlatIdent_2BE68 = 1;
+		end
+	end
 end
 fog:AddToggle("Enable Fog", {Text="Enable Fog",Default=false,Tooltip="Toggle fog effect",Callback=function(state)
 	if state then
@@ -1205,17 +1154,17 @@ fog:AddToggle("Enable Fog", {Text="Enable Fog",Default=false,Tooltip="Toggle fog
 	end
 end});
 fog:AddLabel("Fog Color"):AddColorPicker("FogColorPicker", {Default=fogColor,Title="Select Fog Color",Transparency=nil,Callback=function(value)
-	local FlatIdent_92514 = 0;
+	local FlatIdent_8BA1E = 0;
 	while true do
-		if (FlatIdent_92514 == 0) then
+		if (FlatIdent_8BA1E == 0) then
 			fogColor = value;
 			if (Lighting.FogStart == 0) then
 				Lighting.FogColor = fogColor;
 				Lighting.OutdoorAmbient = fogColor;
 			end
-			FlatIdent_92514 = 1;
+			FlatIdent_8BA1E = 1;
 		end
-		if (FlatIdent_92514 == 1) then
+		if (FlatIdent_8BA1E == 1) then
 			print("[cb] Fog color changed to:", fogColor);
 			break;
 		end
@@ -1224,65 +1173,60 @@ end});
 fog:AddLabel("");
 local circle;
 local function getCircle()
-	if not circle then
-		local FlatIdent_9448C = 0;
-		while true do
-			if (FlatIdent_9448C == 0) then
-				circle = Drawing.new("Circle");
-				circle.Position = Vector2.new(workspace.CurrentCamera.ViewportSize.X / 2, workspace.CurrentCamera.ViewportSize.Y / 2);
-				FlatIdent_9448C = 1;
+	local FlatIdent_7B2D6 = 0;
+	while true do
+		if (FlatIdent_7B2D6 == 0) then
+			if not circle then
+				local FlatIdent_65194 = 0;
+				while true do
+					if (FlatIdent_65194 == 2) then
+						circle.Thickness = 1;
+						circle.Filled = false;
+						break;
+					end
+					if (FlatIdent_65194 == 0) then
+						circle = Drawing.new("Circle");
+						circle.Position = Vector2.new(workspace.CurrentCamera.ViewportSize.X / 2, workspace.CurrentCamera.ViewportSize.Y / 2);
+						FlatIdent_65194 = 1;
+					end
+					if (1 == FlatIdent_65194) then
+						circle.Radius = 120;
+						circle.Color = Color3.fromRGB(255, 255, 255);
+						FlatIdent_65194 = 2;
+					end
+				end
 			end
-			if (FlatIdent_9448C == 2) then
-				circle.Thickness = 1;
-				circle.Filled = false;
-				break;
-			end
-			if (FlatIdent_9448C == 1) then
-				circle.Radius = 120;
-				circle.Color = Color3.fromRGB(255, 255, 255);
-				FlatIdent_9448C = 2;
-			end
+			return circle;
 		end
 	end
-	return circle;
 end
 local circleEnabled = false;
 local circleFilled = false;
 fov:AddToggle("Enable Circle", {Text="Enable Circle",Default=false,Tooltip="Toggle to enable or disable the circle",Callback=function(state)
-	local FlatIdent_6E214 = 0;
+	local FlatIdent_56F59 = 0;
 	local circleInstance;
 	while true do
-		if (FlatIdent_6E214 == 1) then
-			circleInstance.Visible = circleEnabled;
-			break;
-		end
-		if (FlatIdent_6E214 == 0) then
+		if (FlatIdent_56F59 == 0) then
 			circleEnabled = state;
 			circleInstance = getCircle();
-			FlatIdent_6E214 = 1;
+			FlatIdent_56F59 = 1;
+		end
+		if (1 == FlatIdent_56F59) then
+			circleInstance.Visible = circleEnabled;
+			break;
 		end
 	end
 end});
 fov:AddToggle("Filled", {Text="Filled",Default=false,Tooltip="Toggle to fill the circle",Callback=function(state)
-	local FlatIdent_7AA3 = 0;
-	local circleInstance;
-	while true do
-		if (0 == FlatIdent_7AA3) then
-			circleFilled = state;
-			circleInstance = getCircle();
-			FlatIdent_7AA3 = 1;
-		end
-		if (FlatIdent_7AA3 == 1) then
-			circleInstance.Filled = circleFilled;
-			break;
-		end
-	end
+	circleFilled = state;
+	local circleInstance = getCircle();
+	circleInstance.Filled = circleFilled;
 end});
 fov:AddSlider("Circle Size", {Min=20,Max=300,Default=120,Rounding=0,Text="Circle Size",Tooltip="Adjust the size of the circle",Callback=function(size)
-	local FlatIdent_4AB8B = 0;
+	local FlatIdent_71E8F = 0;
 	local circleInstance;
 	while true do
-		if (FlatIdent_4AB8B == 0) then
+		if (FlatIdent_71E8F == 0) then
 			circleInstance = getCircle();
 			if circleInstance then
 				circleInstance.Radius = size;
@@ -1292,21 +1236,11 @@ fov:AddSlider("Circle Size", {Min=20,Max=300,Default=120,Rounding=0,Text="Circle
 	end
 end});
 fov:AddLabel("Circle Color"):AddColorPicker("ColorPicker", {Default=((circle and circle.Color) or Color3.fromRGB(255, 255, 255)),Title="Circle Color",Transparency=nil,Callback=function(Value)
-	local FlatIdent_75331 = 0;
-	local circleInstance;
-	while true do
-		if (FlatIdent_75331 == 0) then
-			circleInstance = getCircle();
-			if circleInstance then
-				circleInstance.Color = Value;
-			end
-			FlatIdent_75331 = 1;
-		end
-		if (FlatIdent_75331 == 1) then
-			print("[cb] Color changed!", Value);
-			break;
-		end
+	local circleInstance = getCircle();
+	if circleInstance then
+		circleInstance.Color = Value;
 	end
+	print("[cb] Color changed!", Value);
 end});
 fov:AddLabel("");
 local circleInstance = getCircle();
@@ -1361,9 +1295,9 @@ local Locked = false;
 local Victim;
 local target;
 if venus.Loaded then
-	local FlatIdent_21E03 = 0;
+	local FlatIdent_51C44 = 0;
 	while true do
-		if (FlatIdent_21E03 == 0) then
+		if (FlatIdent_51C44 == 0) then
 			notify("Venus.CC is Already Loaded!");
 			return;
 		end
@@ -1377,70 +1311,53 @@ local function GetClosestPlayer()
 	local maxAngle = 30;
 	for _, plr in pairs(Players:GetPlayers()) do
 		if ((plr ~= player) and plr.Character and plr.Character:FindFirstChild(venus.AimPart) and plr.Character:FindFirstChild("Humanoid") and (plr.Character.Humanoid.Health > 0)) then
-			local FlatIdent_2C7C4 = 0;
-			local part;
-			local relativePos;
-			local playerDistance;
-			local screenPosition;
-			local onScreen;
-			while true do
-				if (2 == FlatIdent_2C7C4) then
-					if onScreen then
-						local FlatIdent_5CC3B = 0;
-						local angle;
-						while true do
-							if (0 == FlatIdent_5CC3B) then
-								angle = math.deg(math.acos(Camera.CFrame.LookVector:Dot(relativePos.Unit)));
-								if (angle <= maxAngle) then
-									local FlatIdent_B322 = 0;
-									local mouseDistance;
-									local score;
-									local ray;
-									local hitPart;
-									while true do
-										if (1 == FlatIdent_B322) then
-											if (angle < 5) then
-												score = score * 0.001;
+			local part = plr.Character[venus.AimPart];
+			local relativePos = part.Position - Camera.CFrame.Position;
+			local playerDistance = relativePos.Magnitude;
+			local screenPosition, onScreen = Camera:WorldToViewportPoint(part.Position);
+			if onScreen then
+				local FlatIdent_1BAD7 = 0;
+				local angle;
+				while true do
+					if (FlatIdent_1BAD7 == 0) then
+						angle = math.deg(math.acos(Camera.CFrame.LookVector:Dot(relativePos.Unit)));
+						if (angle <= maxAngle) then
+							local FlatIdent_9448C = 0;
+							local mouseDistance;
+							local score;
+							local ray;
+							local hitPart;
+							while true do
+								if (FlatIdent_9448C == 0) then
+									mouseDistance = (Vector2.new(screenPosition.X, screenPosition.Y) - Vector2.new(Mouse.X, Mouse.Y)).Magnitude;
+									score = (mouseDistance * 0.02) + (angle * 0.03);
+									FlatIdent_9448C = 1;
+								end
+								if (FlatIdent_9448C == 2) then
+									hitPart = WS:FindPartOnRayWithIgnoreList(ray, {player.Character});
+									if ((not hitPart or hitPart:IsDescendantOf(plr.Character)) and (score < shortestScore)) then
+										local FlatIdent_6E214 = 0;
+										while true do
+											if (FlatIdent_6E214 == 0) then
+												closestPlayer = plr;
+												shortestScore = score;
+												break;
 											end
-											ray = Ray.new(Camera.CFrame.Position, relativePos.Unit * playerDistance);
-											FlatIdent_B322 = 2;
-										end
-										if (FlatIdent_B322 == 0) then
-											mouseDistance = (Vector2.new(screenPosition.X, screenPosition.Y) - Vector2.new(Mouse.X, Mouse.Y)).Magnitude;
-											score = (mouseDistance * 0.02) + (angle * 0.03);
-											FlatIdent_B322 = 1;
-										end
-										if (2 == FlatIdent_B322) then
-											hitPart = WS:FindPartOnRayWithIgnoreList(ray, {player.Character});
-											if ((not hitPart or hitPart:IsDescendantOf(plr.Character)) and (score < shortestScore)) then
-												local FlatIdent_679D2 = 0;
-												while true do
-													if (FlatIdent_679D2 == 0) then
-														closestPlayer = plr;
-														shortestScore = score;
-														break;
-													end
-												end
-											end
-											break;
 										end
 									end
+									break;
 								end
-								break;
+								if (FlatIdent_9448C == 1) then
+									if (angle < 5) then
+										score = score * 0.001;
+									end
+									ray = Ray.new(Camera.CFrame.Position, relativePos.Unit * playerDistance);
+									FlatIdent_9448C = 2;
+								end
 							end
 						end
+						break;
 					end
-					break;
-				end
-				if (1 == FlatIdent_2C7C4) then
-					playerDistance = relativePos.Magnitude;
-					screenPosition, onScreen = Camera:WorldToViewportPoint(part.Position);
-					FlatIdent_2C7C4 = 2;
-				end
-				if (FlatIdent_2C7C4 == 0) then
-					part = plr.Character[venus.AimPart];
-					relativePos = part.Position - Camera.CFrame.Position;
-					FlatIdent_2C7C4 = 1;
 				end
 			end
 		end
@@ -1453,17 +1370,17 @@ assist:AddToggle("Enable Notifications", {Text="Notifications",Default=false,Too
 end});
 local function ToggleLock()
 	if AimlockState then
-		local FlatIdent_523B3 = 0;
+		local FlatIdent_90E07 = 0;
 		while true do
-			if (FlatIdent_523B3 == 0) then
+			if (FlatIdent_90E07 == 0) then
 				Locked = not Locked;
 				if Locked then
 					Victim = GetClosestPlayer();
 					target = Victim;
 					if (Victim and Victim.Character and Victim.Character:FindFirstChild(venus.AimPart)) then
-						local FlatIdent_74B46 = 0;
+						local FlatIdent_508D4 = 0;
 						while true do
-							if (FlatIdent_74B46 == 0) then
+							if (FlatIdent_508D4 == 0) then
 								if LockButton then
 									LockButton.Image = "rbxassetid://96734356722259";
 								end
@@ -1476,16 +1393,16 @@ local function ToggleLock()
 							end
 						end
 					else
-						local FlatIdent_30B1F = 0;
+						local FlatIdent_8A9D7 = 0;
 						while true do
-							if (1 == FlatIdent_30B1F) then
+							if (FlatIdent_8A9D7 == 1) then
 								target = nil;
 								if LockButton then
 									LockButton.Image = "rbxassetid://88399410034249";
 								end
-								FlatIdent_30B1F = 2;
+								FlatIdent_8A9D7 = 2;
 							end
-							if (FlatIdent_30B1F == 2) then
+							if (FlatIdent_8A9D7 == 2) then
 								if (venus.Enabled and notificationsEnabled) then
 									NotificationSystem:Notify("Camlock: No target found", 5);
 								elseif (targetaim.enabled and notificationsEnabled) then
@@ -1493,17 +1410,17 @@ local function ToggleLock()
 								end
 								break;
 							end
-							if (FlatIdent_30B1F == 0) then
+							if (FlatIdent_8A9D7 == 0) then
 								Locked = false;
 								Victim = nil;
-								FlatIdent_30B1F = 1;
+								FlatIdent_8A9D7 = 1;
 							end
 						end
 					end
 				else
-					local FlatIdent_61F8E = 0;
+					local FlatIdent_38BFA = 0;
 					while true do
-						if (1 == FlatIdent_61F8E) then
+						if (FlatIdent_38BFA == 1) then
 							target = nil;
 							if (venus.Enabled and notificationsEnabled) then
 								NotificationSystem:Notify("Camlock: Unlocked!", 5);
@@ -1512,12 +1429,12 @@ local function ToggleLock()
 							end
 							break;
 						end
-						if (FlatIdent_61F8E == 0) then
+						if (FlatIdent_38BFA == 0) then
 							if LockButton then
 								LockButton.Image = "rbxassetid://88399410034249";
 							end
 							Victim = nil;
-							FlatIdent_61F8E = 1;
+							FlatIdent_38BFA = 1;
 						end
 					end
 				end
@@ -1531,29 +1448,10 @@ end
 function spawnButton()
 	local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui");
 	local function setupGui()
-		local FlatIdent_129E6 = 0;
+		local FlatIdent_8BE54 = 0;
 		local screenGui;
 		while true do
-			if (0 == FlatIdent_129E6) then
-				screenGui = playerGui:FindFirstChild("LockScreenGui");
-				if not screenGui then
-					local FlatIdent_91A09 = 0;
-					while true do
-						if (FlatIdent_91A09 == 1) then
-							screenGui.Parent = playerGui;
-							screenGui.ResetOnSpawn = false;
-							break;
-						end
-						if (FlatIdent_91A09 == 0) then
-							screenGui = Instance.new("ScreenGui");
-							screenGui.Name = "LockScreenGui";
-							FlatIdent_91A09 = 1;
-						end
-					end
-				end
-				FlatIdent_129E6 = 1;
-			end
-			if (FlatIdent_129E6 == 1) then
+			if (FlatIdent_8BE54 == 1) then
 				LockButton = screenGui:FindFirstChild("LockButton");
 				if not LockButton then
 					LockButton = Instance.new("ImageButton");
@@ -1561,7 +1459,7 @@ function spawnButton()
 					LockButton.Size = UDim2.new(0, 80, 0, 80);
 					LockButton.Position = UDim2.new(0.5, -250, 0.8, -225);
 					LockButton.Image = "rbxassetid://88399410034249";
-					LockButton.BackgroundColor3 = Color3.fromRGB(10, 10, 10);
+					LockButton.BackgroundColor3 = Color3.fromRGB(20, 20, 20);
 					LockButton.BackgroundTransparency = 0.45;
 					LockButton.Parent = screenGui;
 					LockButton.Active = true;
@@ -1575,13 +1473,23 @@ function spawnButton()
 				end
 				break;
 			end
+			if (FlatIdent_8BE54 == 0) then
+				screenGui = playerGui:FindFirstChild("LockScreenGui");
+				if not screenGui then
+					screenGui = Instance.new("ScreenGui");
+					screenGui.Name = "LockScreenGui";
+					screenGui.Parent = playerGui;
+					screenGui.ResetOnSpawn = false;
+				end
+				FlatIdent_8BE54 = 1;
+			end
 		end
 	end
 	setupGui();
 	game.Players.LocalPlayer.CharacterAdded:Connect(function()
-		local FlatIdent_89126 = 0;
+		local FlatIdent_669F5 = 0;
 		while true do
-			if (FlatIdent_89126 == 0) then
+			if (FlatIdent_669F5 == 0) then
 				setupGui();
 				if (Locked and Victim) then
 					LockButton.Image = "rbxassetid://96734356722259";
@@ -1602,63 +1510,77 @@ RS.RenderStepped:Connect(function()
 		local aimPart = Victim.Character[venus.AimPart];
 		local predictedPosition = aimPart.Position + (aimPart.Velocity * venus.Prediction) + Vector3.new(0, venus.JumpOffset, 0);
 		if (venus.LookAtEnabled and targetaim.enabled) then
-			local lookPosition = CFrame.new(Camera.CFrame.p, predictedPosition);
-			Camera.CFrame = Camera.CFrame:Lerp(lookPosition, venus.Smoothness);
-			local playerHRP = player.Character.HumanoidRootPart;
-			playerHRP.CFrame = CFrame.new(playerHRP.Position, Vector3.new(predictedPosition.X, playerHRP.Position.Y, predictedPosition.Z));
-		end
-		if AimlockState then
-			local FlatIdent_386FF = 0;
+			local FlatIdent_253F0 = 0;
+			local lookPosition;
 			local playerHRP;
-			local camlockPosition;
 			while true do
-				if (1 == FlatIdent_386FF) then
-					Camera.CFrame = Camera.CFrame:Lerp(camlockPosition, venus.Smoothness);
-					if venus.cframe.TargetStrafe.Enabled then
-						local lp = player.Character;
-						local targpos = Victim.Character.HumanoidRootPart.Position;
-						local angle = tick() * venus.cframe.TargetStrafe.StrafeSpeed;
-						local strafeOffset = Vector3.new(math.cos(angle) * venus.cframe.TargetStrafe.StrafeRadius, venus.cframe.TargetStrafe.Height, math.sin(angle) * venus.cframe.TargetStrafe.StrafeRadius);
-						local strafePosition = targpos + strafeOffset;
-						strafePosition = Vector3.new(strafePosition.X, math.max(strafePosition.Y, targpos.Y), strafePosition.Z);
-						lp:SetPrimaryPartCFrame(CFrame.new(strafePosition));
-						playerHRP.CFrame = CFrame.new(playerHRP.Position, Vector3.new(targpos.X, playerHRP.Position.Y, targpos.Z));
-					end
-					break;
+				if (0 == FlatIdent_253F0) then
+					lookPosition = CFrame.new(Camera.CFrame.p, predictedPosition);
+					Camera.CFrame = Camera.CFrame:Lerp(lookPosition, venus.Smoothness);
+					FlatIdent_253F0 = 1;
 				end
-				if (FlatIdent_386FF == 0) then
+				if (1 == FlatIdent_253F0) then
 					playerHRP = player.Character.HumanoidRootPart;
-					camlockPosition = CFrame.new(Camera.CFrame.p, predictedPosition);
-					FlatIdent_386FF = 1;
+					playerHRP.CFrame = CFrame.new(playerHRP.Position, Vector3.new(predictedPosition.X, playerHRP.Position.Y, predictedPosition.Z));
+					break;
 				end
 			end
 		end
+		if AimlockState then
+			local playerHRP = player.Character.HumanoidRootPart;
+			local camlockPosition = CFrame.new(Camera.CFrame.p, predictedPosition);
+			Camera.CFrame = Camera.CFrame:Lerp(camlockPosition, venus.Smoothness);
+			if venus.cframe.TargetStrafe.Enabled then
+				local lp = player.Character;
+				local targpos = Victim.Character.HumanoidRootPart.Position;
+				local angle = tick() * venus.cframe.TargetStrafe.StrafeSpeed;
+				local strafeOffset = Vector3.new(math.cos(angle) * venus.cframe.TargetStrafe.StrafeRadius, venus.cframe.TargetStrafe.Height, math.sin(angle) * venus.cframe.TargetStrafe.StrafeRadius);
+				local strafePosition = targpos + strafeOffset;
+				strafePosition = Vector3.new(strafePosition.X, math.max(strafePosition.Y, targpos.Y), strafePosition.Z);
+				lp:SetPrimaryPartCFrame(CFrame.new(strafePosition));
+				playerHRP.CFrame = CFrame.new(playerHRP.Position, Vector3.new(targpos.X, playerHRP.Position.Y, targpos.Z));
+			end
+		end
 		if venus.AutoAirEnabled then
-			local TargetRootPart = Victim.Character:FindFirstChild("HumanoidRootPart");
-			if TargetRootPart then
-				local FlatIdent_59521 = 0;
-				local TargetVel;
-				while true do
-					if (FlatIdent_59521 == 0) then
-						TargetVel = TargetRootPart.Velocity;
-						if (TargetVel.Y > 25) then
-							local Character = LocalPlayer.Character;
-							if Character then
-								local FlatIdent_97B67 = 0;
-								local Tool;
-								while true do
-									if (FlatIdent_97B67 == 0) then
-										Tool = Character:FindFirstChildOfClass("Tool");
-										if Tool then
-											Tool:Activate();
+			local FlatIdent_6B9E2 = 0;
+			local TargetRootPart;
+			while true do
+				if (FlatIdent_6B9E2 == 0) then
+					TargetRootPart = Victim.Character:FindFirstChild("HumanoidRootPart");
+					if TargetRootPart then
+						local FlatIdent_70003 = 0;
+						local TargetVel;
+						while true do
+							if (FlatIdent_70003 == 0) then
+								TargetVel = TargetRootPart.Velocity;
+								if (TargetVel.Y > 25) then
+									local FlatIdent_322B4 = 0;
+									local Character;
+									while true do
+										if (FlatIdent_322B4 == 0) then
+											Character = LocalPlayer.Character;
+											if Character then
+												local FlatIdent_9851B = 0;
+												local Tool;
+												while true do
+													if (FlatIdent_9851B == 0) then
+														Tool = Character:FindFirstChildOfClass("Tool");
+														if Tool then
+															Tool:Activate();
+														end
+														break;
+													end
+												end
+											end
+											break;
 										end
-										break;
 									end
 								end
+								break;
 							end
 						end
-						break;
 					end
+					break;
 				end
 			end
 		end
@@ -1668,160 +1590,154 @@ local mt = getrawmetatable(game);
 local oldNameCall = mt.__namecall;
 setreadonly(mt, false);
 mt.__namecall = newcclosure(function(Self, ...)
-	local FlatIdent_4D69A = 0;
-	local args;
-	local methodName;
-	while true do
-		if (0 == FlatIdent_4D69A) then
-			args = {...};
-			methodName = getnamecallmethod();
-			FlatIdent_4D69A = 1;
-		end
-		if (FlatIdent_4D69A == 1) then
-			if (not checkcaller() and (methodName == "FireServer") and targetaim.enabled) then
-				for i, Argument in ipairs(args) do
-					if ((typeof(Argument) == "Vector3") and target and target.Character) then
-						local FlatIdent_12B71 = 0;
-						local targetPart;
-						while true do
-							if (FlatIdent_12B71 == 0) then
-								targetPart = target.Character[targetaim.targetPart];
-								if targetPart then
-									args[i] = targetPart.Position + (targetPart.Velocity * venus.Prediction) + Vector3.new(0, venus.JumpOffset, 0);
-									return oldNameCall(Self, unpack(args));
-								end
-								break;
-							end
-						end
-					end
+	local args = {...};
+	local methodName = getnamecallmethod();
+	if (not checkcaller() and (methodName == "FireServer") and targetaim.enabled) then
+		for i, Argument in ipairs(args) do
+			if ((typeof(Argument) == "Vector3") and target and target.Character) then
+				local targetPart = target.Character[targetaim.targetPart];
+				if targetPart then
+					args[i] = targetPart.Position + (targetPart.Velocity * venus.Prediction) + Vector3.new(0, venus.JumpOffset, 0);
+					return oldNameCall(Self, unpack(args));
 				end
 			end
-			return oldNameCall(Self, ...);
 		end
 	end
+	return oldNameCall(Self, ...);
 end);
 setreadonly(mt, true);
 while task.wait() do
 	if (venus.Enabled and venus.AutoPred) then
-		local pingValue = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString();
-		local ping = tonumber((pingValue:match("%d+")));
-		if ping then
-			if (ping > 225) then
-				venus.Prediction = 0.166547;
-			elseif (ping > 215) then
-				venus.Prediction = 0.15692;
-			elseif (ping > 205) then
-				venus.Prediction = 0.165732;
-			elseif (ping > 190) then
-				venus.Prediction = 0.169;
-			elseif (ping > 185) then
-				venus.Prediction = 0.1235666;
-			elseif (ping > 180) then
-				venus.Prediction = 0.16779123;
-			elseif (ping > 175) then
-				venus.Prediction = 0.165455312399999;
-			elseif (ping > 170) then
-				venus.Prediction = 0.16;
-			elseif (ping > 165) then
-				venus.Prediction = 0.15;
-			elseif (ping > 160) then
-				venus.Prediction = 0.1223333;
-			elseif (ping > 155) then
-				venus.Prediction = 0.125333;
-			elseif (ping > 150) then
-				venus.Prediction = 0.1652131;
-			elseif (ping > 145) then
-				venus.Prediction = 0.129934;
-			elseif (ping > 140) then
-				venus.Prediction = 0.1659921;
-			elseif (ping > 135) then
-				venus.Prediction = 0.1659921;
-			elseif (ping > 130) then
-				venus.Prediction = 0.12399;
-			elseif (ping > 125) then
-				venus.Prediction = 0.15465;
-			elseif (ping > 110) then
-				venus.Prediction = 0.142199;
-			elseif (ping > 105) then
-				venus.Prediction = 0.141199;
-			elseif (ping > 100) then
-				venus.Prediction = 0.134143;
-			elseif (ping > 90) then
-				venus.Prediction = 0.1433333333392;
-			elseif (ping > 80) then
-				venus.Prediction = 0.143214443;
-			elseif (ping > 70) then
-				venus.Prediction = 0.14899911;
-			elseif (ping > 60) then
-				venus.Prediction = 0.148325;
-			elseif (ping > 50) then
-				venus.Prediction = 0.128643;
-			elseif (ping > 40) then
-				venus.Prediction = 0.12766;
-			elseif (ping > 30) then
-				venus.Prediction = 0.124123;
-			elseif (ping > 20) then
-				venus.Prediction = 0.12435;
-			elseif (ping > 10) then
-				venus.Prediction = 0.1234555;
-			elseif (ping < 10) then
-				venus.Prediction = 0.1332;
-			else
-				venus.Prediction = 0.1342;
+		local FlatIdent_3E44E = 0;
+		local pingValue;
+		local ping;
+		while true do
+			if (FlatIdent_3E44E == 1) then
+				if ping then
+					if (ping > 225) then
+						venus.Prediction = 0.166547;
+					elseif (ping > 215) then
+						venus.Prediction = 0.15692;
+					elseif (ping > 205) then
+						venus.Prediction = 0.165732;
+					elseif (ping > 190) then
+						venus.Prediction = 0.169;
+					elseif (ping > 185) then
+						venus.Prediction = 0.1235666;
+					elseif (ping > 180) then
+						venus.Prediction = 0.16779123;
+					elseif (ping > 175) then
+						venus.Prediction = 0.165455312399999;
+					elseif (ping > 170) then
+						venus.Prediction = 0.16;
+					elseif (ping > 165) then
+						venus.Prediction = 0.15;
+					elseif (ping > 160) then
+						venus.Prediction = 0.1223333;
+					elseif (ping > 155) then
+						venus.Prediction = 0.125333;
+					elseif (ping > 150) then
+						venus.Prediction = 0.1652131;
+					elseif (ping > 145) then
+						venus.Prediction = 0.129934;
+					elseif (ping > 140) then
+						venus.Prediction = 0.1659921;
+					elseif (ping > 135) then
+						venus.Prediction = 0.1659921;
+					elseif (ping > 130) then
+						venus.Prediction = 0.12399;
+					elseif (ping > 125) then
+						venus.Prediction = 0.15465;
+					elseif (ping > 110) then
+						venus.Prediction = 0.142199;
+					elseif (ping > 105) then
+						venus.Prediction = 0.141199;
+					elseif (ping > 100) then
+						venus.Prediction = 0.134143;
+					elseif (ping > 90) then
+						venus.Prediction = 0.1433333333392;
+					elseif (ping > 80) then
+						venus.Prediction = 0.143214443;
+					elseif (ping > 70) then
+						venus.Prediction = 0.14899911;
+					elseif (ping > 60) then
+						venus.Prediction = 0.148325;
+					elseif (ping > 50) then
+						venus.Prediction = 0.128643;
+					elseif (ping > 40) then
+						venus.Prediction = 0.12766;
+					elseif (ping > 30) then
+						venus.Prediction = 0.124123;
+					elseif (ping > 20) then
+						venus.Prediction = 0.12435;
+					elseif (ping > 10) then
+						venus.Prediction = 0.1234555;
+					elseif (ping < 10) then
+						venus.Prediction = 0.1332;
+					else
+						venus.Prediction = 0.1342;
+					end
+				end
+				break;
+			end
+			if (FlatIdent_3E44E == 0) then
+				pingValue = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString();
+				ping = tonumber((pingValue:match("%d+")));
+				FlatIdent_3E44E = 1;
 			end
 		end
 	end
 end
 if (desync.sky == true) then
-	local FlatIdent_5013F = 0;
+	local FlatIdent_61F8E = 0;
 	while true do
-		if (0 == FlatIdent_5013F) then
-			getgenv().VenusSky = true;
-			getgenv().SkyAmount = 90;
-			FlatIdent_5013F = 1;
-		end
-		if (FlatIdent_5013F == 1) then
+		if (1 == FlatIdent_61F8E) then
 			game:GetService("RunService").Heartbeat:Connect(function()
 				if getgenv().VenusSky then
-					local FlatIdent_1E844 = 0;
+					local FlatIdent_7993F = 0;
 					local vel;
 					while true do
-						if (FlatIdent_1E844 == 0) then
-							vel = game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity;
-							game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0, getgenv().SkyAmount, 0);
-							FlatIdent_1E844 = 1;
-						end
-						if (FlatIdent_1E844 == 1) then
+						if (FlatIdent_7993F == 1) then
 							game:GetService("RunService").RenderStepped:Wait();
 							game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = vel;
 							break;
+						end
+						if (FlatIdent_7993F == 0) then
+							vel = game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity;
+							game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0, getgenv().SkyAmount, 0);
+							FlatIdent_7993F = 1;
 						end
 					end
 				end
 			end);
 			break;
 		end
+		if (FlatIdent_61F8E == 0) then
+			getgenv().VenusSky = true;
+			getgenv().SkyAmount = 90;
+			FlatIdent_61F8E = 1;
+		end
 	end
 end
 if (desync.jump == true) then
-	local FlatIdent_FC26 = 0;
+	local FlatIdent_9525B = 0;
 	while true do
-		if (FlatIdent_FC26 == 0) then
+		if (FlatIdent_9525B == 0) then
 			getgenv().jumpanti = true;
 			game:GetService("RunService").Heartbeat:Connect(function()
 				if getgenv().jumpanti then
-					local FlatIdent_98E39 = 0;
+					local FlatIdent_91A09 = 0;
 					local CurrentVelocity;
 					while true do
-						if (0 == FlatIdent_98E39) then
-							CurrentVelocity = game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity;
-							game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(1000, 1000, 1000);
-							FlatIdent_98E39 = 1;
-						end
-						if (FlatIdent_98E39 == 1) then
+						if (FlatIdent_91A09 == 1) then
 							game:GetService("RunService").RenderStepped:Wait();
 							game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = CurrentVelocity;
 							break;
+						end
+						if (FlatIdent_91A09 == 0) then
+							CurrentVelocity = game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity;
+							game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(1000, 1000, 1000);
+							FlatIdent_91A09 = 1;
 						end
 					end
 				end
@@ -1858,58 +1774,84 @@ if (desync.jump == true) then
 	local function FireGun()
 		local tool = LocalPlayer.Character:FindFirstChildOfClass("Tool");
 		if (tool and tool:FindFirstChild("Shoot")) then
-			local ShootEvent = tool.Shoot;
-			ShootEvent:FireServer(Mouse.Hit.Position);
-		end
-	end
-	local function Init()
-		if not Root then
-			return;
-		end
-		local rootVel = Root.Velocity;
-		local rootCFrame = Root.CFrame;
-		local rootAng = Random(-180, 180);
-		local rootOffset;
-		do
-			local FlatIdent_62CB4 = 0;
-			local X;
-			local Y;
-			local Z;
+			local FlatIdent_386FF = 0;
+			local ShootEvent;
 			while true do
-				if (FlatIdent_62CB4 == 0) then
-					X = Random(-velMax, velMax);
-					Y = Random(0, velMax);
-					FlatIdent_62CB4 = 1;
-				end
-				if (1 == FlatIdent_62CB4) then
-					Z = Random(-velMax, velMax);
-					rootOffset = Vector(X, -Y, Z);
+				if (FlatIdent_386FF == 0) then
+					ShootEvent = tool.Shoot;
+					ShootEvent:FireServer(Mouse.Hit.Position);
 					break;
 				end
 			end
 		end
-		Root.CFrame = Angle(0, Radian(rootAng), 0);
-		Root.Velocity = rootOffset;
-		FireGun();
-		runRenWait(runRen);
-		Root.CFrame = rootCFrame;
-		Root.Velocity = rootVel;
+	end
+	local function Init()
+		local FlatIdent_87C42 = 0;
+		local rootVel;
+		local rootCFrame;
+		local rootAng;
+		local rootOffset;
+		while true do
+			if (FlatIdent_87C42 == 2) then
+				Root.CFrame = Angle(0, Radian(rootAng), 0);
+				Root.Velocity = rootOffset;
+				FireGun();
+				FlatIdent_87C42 = 3;
+			end
+			if (FlatIdent_87C42 == 0) then
+				if not Root then
+					return;
+				end
+				rootVel = Root.Velocity;
+				rootCFrame = Root.CFrame;
+				FlatIdent_87C42 = 1;
+			end
+			if (FlatIdent_87C42 == 1) then
+				rootAng = Random(-180, 180);
+				rootOffset = nil;
+				do
+					local FlatIdent_280F1 = 0;
+					local X;
+					local Y;
+					local Z;
+					while true do
+						if (FlatIdent_280F1 == 1) then
+							Z = Random(-velMax, velMax);
+							rootOffset = Vector(X, -Y, Z);
+							break;
+						end
+						if (FlatIdent_280F1 == 0) then
+							X = Random(-velMax, velMax);
+							Y = Random(0, velMax);
+							FlatIdent_280F1 = 1;
+						end
+					end
+				end
+				FlatIdent_87C42 = 2;
+			end
+			if (FlatIdent_87C42 == 3) then
+				runRenWait(runRen);
+				Root.CFrame = rootCFrame;
+				Root.Velocity = rootVel;
+				break;
+			end
+		end
 	end
 	runBeatCon(runBeat, Init);
 	while Wait(timeRelease) do
-		local FlatIdent_4E1DE = 0;
+		local FlatIdent_95405 = 0;
 		local chokeClient;
 		local chokeServer;
 		while true do
-			if (0 == FlatIdent_4E1DE) then
-				chokeClient, chokeServer = runBeatCon(runBeat, Sleep), runRenCon(runRen, Sleep);
-				Wait(Ceil(Ping()) / 1000);
-				FlatIdent_4E1DE = 1;
-			end
-			if (FlatIdent_4E1DE == 1) then
+			if (1 == FlatIdent_95405) then
 				chokeClient:Disconnect();
 				chokeServer:Disconnect();
 				break;
+			end
+			if (FlatIdent_95405 == 0) then
+				chokeClient, chokeServer = runBeatCon(runBeat, Sleep), runRenCon(runRen, Sleep);
+				Wait(Ceil(Ping()) / 1000);
+				FlatIdent_95405 = 1;
 			end
 		end
 	end
